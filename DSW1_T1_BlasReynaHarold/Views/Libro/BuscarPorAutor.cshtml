@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DSW1_T1_BlasReynaHarold.Models.Libro>
+@{
+    ViewData["Title"] = "Libros por autor";
+}
+
+<h1 class="mb-4">Consulta de libros por autor</h1>
+
+<form asp-action="BuscarPorAutor" method="get" class="row g-2 mb-3">
+    <div class="col-md-5">
+        <input type="text" name="autor" value="@ViewBag.Autor" maxlength="100"
+               class="form-control" placeholder="Escriba el nombre o parte del nombre del autor" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+    </div>
+</form>
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-@(ViewBag.TipoMensaje ?? "info")" role="alert">@ViewBag.Mensaje</div>
+}
+
+@if (Model.Any())
+{
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.NombreLibro)</th>
+                <th>@Html.DisplayNameFor(model => model.Autor)</th>
+                <th>@Html.DisplayNameFor(model => model.NombreEditorial)</th>
+                <th>@Html.DisplayNameFor(model => model.ISDN)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.NombreLibro</td>
+                    <td>@item.Autor</td>
+                    <td>@item.NombreEditorial</td>
+                    <td>@item.ISDN</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
